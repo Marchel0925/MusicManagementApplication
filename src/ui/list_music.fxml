@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane layoutX="213.0" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ListMusicController">
+    <children>
+        <TableView fx:id="table" prefHeight="550.0" prefWidth="800.0">
+            <columns>
+            </columns>
+        </TableView>
+      <Button layoutX="-195.0" layoutY="14.0" mnemonicParsing="false" onAction="#back" prefHeight="34.0" prefWidth="71.0" text="Back" />
+      <Button layoutX="-195.0" layoutY="62.0" mnemonicParsing="false" onAction="#showArtistTable" prefHeight="44.0" prefWidth="175.0" text="All Artists" />
+      <Button layoutX="-195.0" layoutY="542.0" mnemonicParsing="false" onAction="#exitWindow" prefHeight="34.0" prefWidth="71.0" text="Exit" />
+      <Button layoutX="-195.0" layoutY="119.0" mnemonicParsing="false" onAction="#addSongWindow" prefHeight="44.0" prefWidth="175.0" text="Add Song" />
+      <Button layoutX="-195.0" layoutY="174.0" mnemonicParsing="false" onAction="#deleteSong" prefHeight="44.0" prefWidth="175.0" text="Delete Song" />
+    </children>
+</Pane>

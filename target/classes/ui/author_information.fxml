@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AuthorInformationController">
+<columnConstraints>
+    <ColumnConstraints />
+</columnConstraints>
+<rowConstraints>
+    <RowConstraints />
+</rowConstraints>
+<children>
+    <AnchorPane prefHeight="290.0" prefWidth="250.0">
+        <children>
+            <Button layoutX="175.0" layoutY="242.0" mnemonicParsing="false" onAction="#back" text="Back" />
+            <TextArea styleClass="centeredTextArea" editable="false" layoutX="27.0" layoutY="14.0" prefHeight="220.0" prefWidth="200.0" text="My name is Marcis Andersons.&#10;This is my practical project ...&#10;Music Managemen Application&#10;Hope you like it.&#10;:)" />
+        </children>
+    </AnchorPane>
+</children>
+</GridPane>

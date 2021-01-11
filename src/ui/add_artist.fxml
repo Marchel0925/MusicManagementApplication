@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.TextField?>
+
+<?import javafx.scene.control.Button?>
+<StackPane fx:id="rootPane" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AddArtistController">
+    <children>
+        <AnchorPane id="AnchorPane" fx:id="mainContainer" prefHeight="338.0" prefWidth="464.0" styleClass="custom-pane">
+            <children>
+                <VBox prefHeight="256.0" prefWidth="404.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <children>
+                        <TextField fx:id="stageName" promptText="Stage name">
+                            <VBox.margin>
+                                <Insets left="10.0" right="10.0" top="20.0" />
+                            </VBox.margin>
+                        </TextField>
+                        <TextField fx:id="firstName" layoutX="20.0" layoutY="30.0" promptText="First name">
+                            <VBox.margin>
+                                <Insets left="10.0" right="10.0" top="20.0" />
+                            </VBox.margin>
+                        </TextField>
+                        <TextField fx:id="lastName" layoutX="10.0" layoutY="62.0" promptText="Last name">
+                            <VBox.margin>
+                                <Insets left="10.0" right="10.0" top="20.0" />
+                            </VBox.margin>
+                        </TextField>
+                        <HBox alignment="CENTER" prefHeight="47.0" prefWidth="404.0" spacing="30.0">
+                            <children>
+                                <Button onAction="#addArtist" prefHeight="66.0" prefWidth="100.0" text="Save" />
+                                <Button onAction="#cancel" layoutX="10.0" layoutY="10.0" prefHeight="66.0" prefWidth="100.0" text="Cancel" />
+                            </children>
+                            <VBox.margin>
+                                <Insets top="25.0" />
+                            </VBox.margin>
+                            <padding>
+                                <Insets bottom="20.0" />
+                            </padding>
+                        </HBox>
+                    </children>
+                    <padding>
+                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                    </padding>
+                </VBox>
+            </children>
+        </AnchorPane>
+    </children>
+</StackPane>
