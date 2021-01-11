@@ -12,9 +12,9 @@ import java.util.List;
 import java.util.Properties;
 
 import static java.util.Arrays.asList;
-import static utils.UserUtils.DATABASE_HOST;
-import static utils.UserUtils.DATABASE_USERNAME;
-import static utils.UserUtils.DATABASE_PASSWORD;
+import static author_info.UserUtils.DATABASE_HOST;
+import static author_info.UserUtils.DATABASE_USERNAME;
+import static author_info.UserUtils.DATABASE_PASSWORD;
 
 public class HibernateSessionBuilder {
 
