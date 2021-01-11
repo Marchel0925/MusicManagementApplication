@@ -10,14 +10,14 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
+import utils.Alerts;
 import utils.Redirect;
 import utils.RedirectEnums;
 
 public class MainController implements Initializable {
 
-    @FXML private CheckBox checkBox;
-
     private final Redirect redirect = new Redirect();
+    private final Alerts alerts = new Alerts();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -36,13 +36,7 @@ public class MainController implements Initializable {
 
     @FXML
     public void darkMode(ActionEvent event) throws Exception {
-        Parent loader = FXMLLoader.load(getClass().getResource("/ui/main.fxml"));
-        Scene scene = new Scene(loader);
-        if (checkBox.isSelected()) {
-            scene.getStylesheets().add("css/dark_mode.css");
-        } else {
-            scene.getStylesheets().remove("css/dark_mode.css");
-        }
+        alerts.handleWarning(event, "This feature does not work yet.");
     }
 
     @FXML

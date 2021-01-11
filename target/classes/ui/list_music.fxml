@@ -13,6 +13,7 @@
       <Button layoutX="-195.0" layoutY="62.0" mnemonicParsing="false" onAction="#showArtistTable" prefHeight="44.0" prefWidth="175.0" text="All Artists" />
       <Button layoutX="-195.0" layoutY="542.0" mnemonicParsing="false" onAction="#exitWindow" prefHeight="34.0" prefWidth="71.0" text="Exit" />
       <Button layoutX="-195.0" layoutY="119.0" mnemonicParsing="false" onAction="#addSongWindow" prefHeight="44.0" prefWidth="175.0" text="Add Song" />
-      <Button layoutX="-195.0" layoutY="174.0" mnemonicParsing="false" onAction="#deleteSong" prefHeight="44.0" prefWidth="175.0" text="Delete Song" />
+      <Button layoutX="-195.0" layoutY="231.0" mnemonicParsing="false" onAction="#deleteSong" prefHeight="44.0" prefWidth="175.0" text="Delete Song" />
+      <Button layoutX="-195.0" layoutY="176.0" mnemonicParsing="false" onAction="#openSong" prefHeight="44.0" prefWidth="175.0" text="Open Song" />
     </children>
 </Pane>

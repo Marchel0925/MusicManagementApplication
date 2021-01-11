@@ -10,9 +10,12 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import repository.MusicRepository;
+import utils.Alerts;
 import utils.Redirect;
 import utils.RedirectEnums;
 
+import java.awt.*;
+import java.net.URI;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -20,6 +23,7 @@ public class ListMusicController implements Initializable {
 
     private final MusicRepository musicRepository = new MusicRepository();
     private final Redirect redirect = new Redirect();
+    private final Alerts alerts = new Alerts();
 
     @FXML private TableView<Music> table;
 
@@ -45,9 +49,20 @@ public class ListMusicController implements Initializable {
     }
 
     @FXML
+    public void openSong(ActionEvent event) throws Exception {
+        if(table.getSelectionModel().getSelectedItem() == null){
+            alerts.handleWarning(event, "You need to select a song.");
+        }
+        Desktop desktop = java.awt.Desktop.getDesktop();
+        Music music = table.getSelectionModel().getSelectedItem();
+        URI url = new URI(music.getSongURL());
+        desktop.browse(url);
+    }
+
+    @FXML
     public void deleteSong(ActionEvent event) throws Exception {
         if(table.getSelectionModel().getSelectedItem() == null){
-
+            alerts.handleWarning(event, "You need to select a song.");
         }
         Music music = table.getSelectionModel().getSelectedItem();
         musicRepository.delete(music);

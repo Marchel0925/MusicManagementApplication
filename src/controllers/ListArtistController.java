@@ -1,6 +1,7 @@
 package controllers;
 
 import entities.Artist;
+import entities.Music;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -10,6 +11,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import repository.ArtistRepository;
+import utils.Alerts;
 import utils.Redirect;
 import utils.RedirectEnums;
 
@@ -20,6 +22,7 @@ public class ListArtistController implements Initializable {
 
     private final ArtistRepository artistRepository = new ArtistRepository();
     private final Redirect redirect = new Redirect();
+    private final Alerts alerts = new Alerts();
 
     @FXML
     private TableView<Artist> table;
@@ -33,6 +36,16 @@ public class ListArtistController implements Initializable {
     @FXML
     public void addArtistWindow(ActionEvent event) throws Exception {
         redirect.to(event, RedirectEnums.TO_ADD_ARTIST_WINDOW.getPath());
+    }
+
+    @FXML
+    public void deleteArtist(ActionEvent event) throws Exception {
+        if(table.getSelectionModel().getSelectedItem() == null){
+            alerts.handleWarning(event, "You need to select a artist.");
+        }
+        Artist artist = table.getSelectionModel().getSelectedItem();
+        artistRepository.delete(artist);
+        populateTable();
     }
 
     @FXML
