@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<StackPane fx:id="rootPane" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ViewArtistController">
+   <children>
+      <AnchorPane prefHeight="300.0" prefWidth="300.0">
+         <children>
+            <Label layoutX="14.0" layoutY="14.0" prefHeight="28.0" prefWidth="167.0" text="Artist Information">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <TextField fx:id="stageName" editable="false" layoutX="14.0" layoutY="82.0" prefHeight="25.0" prefWidth="251.0" />
+            <TextField fx:id="firstName" editable="false" layoutX="14.0" layoutY="137.0" prefHeight="25.0" prefWidth="251.0" />
+            <TextField fx:id="lastName" editable="false" layoutX="14.0" layoutY="191.0" prefHeight="25.0" prefWidth="251.0" />
+            <Label layoutX="24.0" layoutY="65.0" prefHeight="17.0" prefWidth="73.0" text="Stage Name" />
+            <Label layoutX="24.0" layoutY="120.0" prefHeight="17.0" prefWidth="73.0" text="First Name" />
+            <Label layoutX="24.0" layoutY="174.0" text="Last Name" />
+            <Button layoutX="92.0" layoutY="240.0" onAction="#okButton" mnemonicParsing="false" prefHeight="38.0" prefWidth="95.0" text="Ok" />
+         </children></AnchorPane>
+   </children>
+</StackPane>

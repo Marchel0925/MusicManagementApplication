@@ -1,6 +1,7 @@
 package controllers;
 
 import controllers.view.ViewLoader;
+import entities.Artist;
 import entities.Music;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -30,6 +31,7 @@ public class ListMusicController implements Initializable {
 
     private final MusicRepository musicRepository = new MusicRepository();
     private final Alerts alerts = new Alerts();
+
 
     @FXML private TableView<Music> table;
 
@@ -82,6 +84,19 @@ public class ListMusicController implements Initializable {
     }
 
     @FXML
+    public void checkAuthor(ActionEvent event){
+        if(table.getSelectionModel().getSelectedItem() == null){
+            alerts.handleWarning(event, "You need to select a song.");
+        } else {
+            Music music = table.getSelectionModel().getSelectedItem();
+            Artist artist = music.getArtist();
+            ViewArtistController controller = (ViewArtistController) ViewLoader
+                    .load(getClass().getResource("/ui/view_artist.fxml"), "Artist");
+            controller.setData(artist.getStageName(), artist.getFirstName(), artist.getLastName());
+        }
+    }
+
+    @FXML
     public void deleteSong(ActionEvent event) throws Exception {
         if(table.getSelectionModel().getSelectedItem() == null){
             alerts.handleWarning(event, "You need to select a song.");
@@ -104,26 +119,18 @@ public class ListMusicController implements Initializable {
 
         TableColumn<Music, String> column2 = new TableColumn<>("Genre");
         column2.setCellValueFactory(new PropertyValueFactory<>("genre"));
-        column2.prefWidthProperty().bind(table.widthProperty().multiply(0.10));
+        column2.prefWidthProperty().bind(table.widthProperty().multiply(0.1));
         column2.setResizable(false);
 
         TableColumn<Music, String> column3 = new TableColumn<>("Title");
         column3.setCellValueFactory(new PropertyValueFactory<>("title"));
-        column3.prefWidthProperty().bind(table.widthProperty().multiply(0.25));
+        column3.prefWidthProperty().bind(table.widthProperty().multiply(0.35));
         column3.setResizable(false);
 
         TableColumn<Music, String> column4 = new TableColumn<>("Song URL");
         column4.setCellValueFactory(new PropertyValueFactory<>("songURL"));
         column4.prefWidthProperty().bind(table.widthProperty().multiply(0.5));
         column4.setResizable(false);
-
-        /*
-        TableColumn<Music, String> column5 = new TableColumn<>("Artist ID");
-        column5.setCellValueFactory(new PropertyValueFactory<>(" "));
-        column5.prefWidthProperty().bind(table.widthProperty().multiply(0.10));
-        column5.setResizable(false);
-         */
-
 
         table.getColumns().add(column1);
         table.getColumns().add(column2);
