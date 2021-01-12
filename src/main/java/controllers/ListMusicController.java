@@ -1,18 +1,25 @@
 package controllers;
 
+import controllers.view.ViewLoader;
 import entities.Music;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Rectangle2D;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Screen;
+import javafx.stage.Stage;
 import repository.MusicRepository;
-import utils.Alerts;
-import utils.Redirect;
-import utils.RedirectEnums;
+import utils.*;
 
 import java.awt.*;
 import java.net.URI;
@@ -22,7 +29,6 @@ import java.util.ResourceBundle;
 public class ListMusicController implements Initializable {
 
     private final MusicRepository musicRepository = new MusicRepository();
-    private final Redirect redirect = new Redirect();
     private final Alerts alerts = new Alerts();
 
     @FXML private TableView<Music> table;
@@ -35,17 +41,33 @@ public class ListMusicController implements Initializable {
 
     @FXML
     public void back(ActionEvent event) throws Exception {
-        redirect.to(event, RedirectEnums.TO_MAIN.getPath());
+        Parent loader = FXMLLoader.load(getClass().getResource("/ui/main.fxml"));
+        Scene scene = new Scene(loader);
+        Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        app_stage.setScene(scene);
+        Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+        app_stage.setX((primScreenBounds.getWidth() - app_stage.getWidth()) / 2);
+        app_stage.setY((primScreenBounds.getHeight() - app_stage.getHeight()) / 2);
+        app_stage.show();
     }
 
     @FXML
     public void showArtistTable(ActionEvent event) throws Exception {
-        redirect.to(event, RedirectEnums.TO_ARTIST_TABLE.getPath());
+        Parent loader = FXMLLoader.load(getClass().getResource("/ui/list_artists.fxml"));
+        Scene scene = new Scene(loader);
+        Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        app_stage.setScene(scene);
+        Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+        app_stage.setX((primScreenBounds.getWidth() - app_stage.getWidth()) / 2);
+        app_stage.setY((primScreenBounds.getHeight() - app_stage.getHeight()) / 2);
+        app_stage.show();
     }
 
     @FXML
     public void addSongWindow(ActionEvent event) throws Exception {
-        redirect.to(event, RedirectEnums.TO_ADD_SONG_WINDOW.getPath());
+        AddSongController controller = (AddSongController) ViewLoader
+                .load(getClass().getResource("/ui/add_song.fxml"), "Add Song");
+        controller.addPostOperationCallback(this::populateTable);
     }
 
     @FXML
@@ -71,7 +93,7 @@ public class ListMusicController implements Initializable {
 
     @FXML
     public void exitWindow(ActionEvent event) {
-        redirect.exit(event);
+        ((Stage)(((Button)event.getSource()).getScene().getWindow())).close();
     }
 
     private void configureTable() {

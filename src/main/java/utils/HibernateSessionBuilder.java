@@ -12,11 +12,12 @@ import java.util.List;
 import java.util.Properties;
 
 import static java.util.Arrays.asList;
-import static author_info.UserUtils.DATABASE_HOST;
-import static author_info.UserUtils.DATABASE_USERNAME;
-import static author_info.UserUtils.DATABASE_PASSWORD;
 
 public class HibernateSessionBuilder {
+
+    public static final String DATABASE_HOST = "jdbc:mysql://localhost:3306/musicmanagementapplication?useSSL=false&serverTimezone=UTC";
+    public static final String DATABASE_USERNAME = "Marcis Andersons";
+    public static final String DATABASE_PASSWORD = "M@rchel0925";
 
     private static final List<Class> ENTITIES = asList(Music.class, Artist.class);
 
