@@ -84,7 +84,7 @@ public class ListMusicController implements Initializable {
     }
 
     @FXML
-    public void checkAuthor(ActionEvent event){
+    public void checkArtist(ActionEvent event){
         if(table.getSelectionModel().getSelectedItem() == null){
             alerts.handleWarning(event, "You need to select a song.");
         } else {
@@ -92,9 +92,23 @@ public class ListMusicController implements Initializable {
             Artist artist = music.getArtist();
             ViewArtistController controller = (ViewArtistController) ViewLoader
                     .load(getClass().getResource("/ui/view_artist.fxml"), "Artist");
-            controller.setData(artist.getStageName(), artist.getFirstName(), artist.getLastName());
+            controller.setData(artist.getStageName(), artist.getFirstName(), artist.getLastName(), artist.getId());
         }
     }
+
+    @FXML
+    private void editSong(ActionEvent event) {
+        if(table.getSelectionModel().getSelectedItem() == null) {
+            alerts.handleWarning(event, "You need to select a song.");
+        } else {
+            Music music = table.getSelectionModel().getSelectedItem();
+            AddSongController controller = (AddSongController) ViewLoader.load(getClass()
+                    .getResource("/ui/add_song.fxml"), "Edit song");
+            controller.setEditable(music);
+            controller.addPostOperationCallback(this::populateTable);
+        }
+    }
+
 
     @FXML
     public void deleteSong(ActionEvent event) throws Exception {

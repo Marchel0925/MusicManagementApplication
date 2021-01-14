@@ -2,6 +2,7 @@ package controllers;
 
 import controllers.view.ViewLoader;
 import entities.Artist;
+import entities.Music;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -52,6 +53,19 @@ public class ListArtistController implements Initializable {
         Artist artist = table.getSelectionModel().getSelectedItem();
         artistRepository.delete(artist);
         populateTable();
+    }
+
+    @FXML
+    private void editArtist(ActionEvent event) {
+        if(table.getSelectionModel().getSelectedItem() == null) {
+            alerts.handleWarning(event, "You need to select a song.");
+        } else {
+            Artist artist = table.getSelectionModel().getSelectedItem();
+            AddArtistController controller = (AddArtistController) ViewLoader.load(getClass()
+                    .getResource("/ui/add_artist.fxml"), "Edit artist");
+            controller.setEditable(artist);
+            controller.addPostOperationCallback(this::populateTable);
+        }
     }
 
     @FXML

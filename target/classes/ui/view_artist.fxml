@@ -13,13 +13,28 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <TextField fx:id="stageName" editable="false" layoutX="14.0" layoutY="82.0" prefHeight="25.0" prefWidth="251.0" />
+            <TextField fx:id="stageName" editable="false" layoutX="14.0" layoutY="82.0" prefHeight="25.0" prefWidth="179.0" />
             <TextField fx:id="firstName" editable="false" layoutX="14.0" layoutY="137.0" prefHeight="25.0" prefWidth="251.0" />
             <TextField fx:id="lastName" editable="false" layoutX="14.0" layoutY="191.0" prefHeight="25.0" prefWidth="251.0" />
-            <Label layoutX="24.0" layoutY="65.0" prefHeight="17.0" prefWidth="73.0" text="Stage Name" />
-            <Label layoutX="24.0" layoutY="120.0" prefHeight="17.0" prefWidth="73.0" text="First Name" />
-            <Label layoutX="24.0" layoutY="174.0" text="Last Name" />
-            <Button layoutX="92.0" layoutY="240.0" onAction="#okButton" mnemonicParsing="false" prefHeight="38.0" prefWidth="95.0" text="Ok" />
+            <Label layoutX="17.0" layoutY="65.0" prefHeight="17.0" prefWidth="73.0" text="Stage Name">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
+            <Label layoutX="17.0" layoutY="119.0" prefHeight="17.0" prefWidth="73.0" text="First Name">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
+            <Label layoutX="17.0" layoutY="173.0" text="Last Name">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
+            <Button fx:id="closeButton" layoutX="92.0" layoutY="240.0" mnemonicParsing="false" onAction="#okButton" prefHeight="38.0" prefWidth="95.0" text="Ok" />
+            <TextField fx:id="artistId" alignment="CENTER" editable="false" layoutX="220.0" layoutY="82.0" prefHeight="25.0" prefWidth="35.0" />
+            <Label layoutX="220.0" layoutY="65.0" text="ID">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
          </children></AnchorPane>
    </children>
 </StackPane>

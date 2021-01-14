@@ -15,10 +15,6 @@ import static java.util.Arrays.asList;
 
 public class HibernateSessionBuilder {
 
-    public static final String DATABASE_HOST = "jdbc:mysql://localhost:3306/musicmanagementapplication?useSSL=false&serverTimezone=UTC";
-    public static final String DATABASE_USERNAME = "Marcis Andersons";
-    public static final String DATABASE_PASSWORD = "M@rchel0925";
-
     private static final List<Class> ENTITIES = asList(Music.class, Artist.class);
 
     private static final String DB_DRIVER = "com.mysql.jdbc.Driver";
@@ -64,9 +60,9 @@ public class HibernateSessionBuilder {
     private static Properties properties() {
         Properties properties = new Properties();
         properties.put(Environment.DRIVER, DB_DRIVER);
-        properties.put(Environment.URL, DATABASE_HOST);
-        properties.put(Environment.USER, DATABASE_USERNAME);
-        properties.put(Environment.PASS, DATABASE_PASSWORD);
+        properties.put(Environment.URL, UserUtils.DATABASE_HOST);
+        properties.put(Environment.USER, UserUtils.DATABASE_USERNAME);
+        properties.put(Environment.PASS, UserUtils.DATABASE_PASSWORD);
         properties.put(Environment.DIALECT, DB_DIALECT);
         properties.put(Environment.SHOW_SQL, "true");
         properties.put(Environment.CURRENT_SESSION_CONTEXT_CLASS, "thread");
