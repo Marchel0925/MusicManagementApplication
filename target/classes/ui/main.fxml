@@ -16,7 +16,6 @@
             <Button alignment="CENTER" layoutX="29.0" layoutY="14.0" mnemonicParsing="false" onAction="#switchPanel" prefHeight="82.0" prefWidth="152.0" text="Open Music Manager" />
             <Button cancelButton="true" layoutX="30.0" layoutY="240.0" mnemonicParsing="false" onAction="#exitWindow" prefHeight="34.0" prefWidth="67.0" text="Exit" />
             <Button layoutX="30.0" layoutY="104.0" mnemonicParsing="false" onAction="#authorInformation" prefHeight="82.0" prefWidth="152.0" text="Author info" />
-            <Button layoutX="106.0" layoutY="200.0" mnemonicParsing="false" onAction="#darkMode" prefHeight="25.0" prefWidth="75.0" text="Dark mode" />
          </children>
       </AnchorPane>
    </children>

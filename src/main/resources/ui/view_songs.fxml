@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<Pane layoutX="200.0" prefHeight="400.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ViewSongsController">
+    <children>
+        <TableView fx:id="table" prefHeight="350.0" prefWidth="450.0">
+            <columns>
+            </columns>
+        </TableView>
+        <Button fx:id="closeButton" layoutX="-185.0" layoutY="350.0" onAction="#okButton" mnemonicParsing="false" prefHeight="35.0" prefWidth="69.0" text="Back" />
+      <VBox layoutX="-185.0" layoutY="54.0" prefHeight="130.0" prefWidth="170.0">
+         <children>
+            <Label text="Stage Name" />
+            <TextField fx:id="stageName" editable="false" />
+            <Label text="First Name" />
+            <TextField fx:id="firstName" editable="false" />
+            <Label text="Last Name" />
+            <TextField fx:id="lastName" editable="false" />
+         </children>
+      </VBox>
+      <Label layoutX="-178.0" layoutY="14.0" text="All songs for:">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+    </children>
+</Pane>

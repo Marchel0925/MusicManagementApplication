@@ -14,11 +14,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import utils.Alerts;
 
 public class MainController implements Initializable {
-
-    private final Alerts alerts = new Alerts();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -47,11 +44,6 @@ public class MainController implements Initializable {
         app_stage.setX((primScreenBounds.getWidth() - app_stage.getWidth()) / 2);
         app_stage.setY((primScreenBounds.getHeight() - app_stage.getHeight()) / 2);
         app_stage.show();
-    }
-
-    @FXML
-    public void darkMode(ActionEvent event) throws Exception {
-        alerts.handleWarning(event, "This feature does not work yet.");
     }
 
     @FXML

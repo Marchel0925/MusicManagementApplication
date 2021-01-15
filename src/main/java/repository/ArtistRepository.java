@@ -1,7 +1,8 @@
 package repository;
 
-import java.util.List;
+import java.util.*;
 import entities.Artist;
+
 
 public class ArtistRepository extends GenericRepository<Artist> {
 
@@ -14,4 +15,5 @@ public class ArtistRepository extends GenericRepository<Artist> {
     public List<Artist> findAll() {
         return super.findAll(HIBERNATE_SELECT_QUERY, Artist.class);
     }
+
 }

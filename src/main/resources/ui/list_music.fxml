@@ -17,5 +17,6 @@
       <Button layoutX="-195.0" layoutY="176.0" mnemonicParsing="false" onAction="#openSong" prefHeight="44.0" prefWidth="175.0" text="Play Song" />
       <Button layoutX="-195.0" layoutY="288.0" mnemonicParsing="false" onAction="#checkArtist" prefHeight="44.0" prefWidth="175.0" text="Check Artist" />
       <Button layoutX="-195.0" layoutY="345.0" mnemonicParsing="false" onAction="#editSong" prefHeight="44.0" prefWidth="175.0" text="Edit Song" />
+      <Button layoutX="685.0" layoutY="559.0" mnemonicParsing="false" onAction="#clearData" prefHeight="34.0" prefWidth="91.0" text="Clear Table" />
     </children>
 </Pane>

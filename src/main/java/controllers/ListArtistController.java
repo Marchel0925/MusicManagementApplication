@@ -22,6 +22,8 @@ import repository.ArtistRepository;
 import utils.Alerts;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class ListArtistController implements Initializable {
@@ -58,13 +60,27 @@ public class ListArtistController implements Initializable {
     @FXML
     private void editArtist(ActionEvent event) {
         if(table.getSelectionModel().getSelectedItem() == null) {
-            alerts.handleWarning(event, "You need to select a song.");
+            alerts.handleWarning(event, "You need to select a artist.");
         } else {
             Artist artist = table.getSelectionModel().getSelectedItem();
             AddArtistController controller = (AddArtistController) ViewLoader.load(getClass()
                     .getResource("/ui/add_artist.fxml"), "Edit artist");
             controller.setEditable(artist);
             controller.addPostOperationCallback(this::populateTable);
+        }
+    }
+
+    @FXML
+    private void checkSongs(ActionEvent event) {
+        if(table.getSelectionModel().getSelectedItem() == null) {
+            alerts.handleWarning(event, "You need to select a artist.");
+        } else {
+            Artist artist = table.getSelectionModel().getSelectedItem();
+            List<Music> list = new ArrayList<>(artist.getMusicSet());
+            ViewSongsController controller = (ViewSongsController) ViewLoader.load(getClass()
+                    .getResource("/ui/view_songs.fxml"), "All songs");
+            controller.setData(artist.getStageName(), artist.getFirstName(), artist.getLastName());
+            controller.setSongList(list);
         }
     }
 

@@ -109,6 +109,13 @@ public class ListMusicController implements Initializable {
         }
     }
 
+    @FXML
+    private void clearData(ActionEvent event) {
+        for (Music song : table.getItems()) {
+            musicRepository.delete(song);
+        }
+        populateTable();
+    }
 
     @FXML
     public void deleteSong(ActionEvent event) throws Exception {

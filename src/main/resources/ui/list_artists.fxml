@@ -13,5 +13,6 @@
       <Button layoutX="-185.0" layoutY="63.0" mnemonicParsing="false" onAction="#addArtistWindow" prefHeight="44.0" prefWidth="161.0" text="Add Artist" />
       <Button layoutX="-185.0" layoutY="117.0" mnemonicParsing="false" onAction="#deleteArtist" prefHeight="44.0" prefWidth="161.0" text="Delete Artist" />
       <Button layoutX="-185.0" layoutY="175.0" mnemonicParsing="false" onAction="#editArtist" prefHeight="44.0" prefWidth="161.0" text="Edit Artist" />
+      <Button layoutX="-185.0" layoutY="231.0" mnemonicParsing="false" onAction="#checkSongs" prefHeight="44.0" prefWidth="161.0" text="Check Songs" />
     </children>
 </Pane>
