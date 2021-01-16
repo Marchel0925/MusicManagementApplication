@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
 
 <Pane layoutX="213.0" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ListMusicController">
     <children>
@@ -18,5 +19,19 @@
       <Button layoutX="-195.0" layoutY="288.0" mnemonicParsing="false" onAction="#checkArtist" prefHeight="44.0" prefWidth="175.0" text="Check Artist" />
       <Button layoutX="-195.0" layoutY="345.0" mnemonicParsing="false" onAction="#editSong" prefHeight="44.0" prefWidth="175.0" text="Edit Song" />
       <Button layoutX="685.0" layoutY="559.0" mnemonicParsing="false" onAction="#clearData" prefHeight="34.0" prefWidth="91.0" text="Clear Table" />
+      <HBox layoutX="343.0" layoutY="563.0" prefHeight="27.0" prefWidth="200.0">
+         <children>
+            <Label prefHeight="17.0" prefWidth="63.0" text="Order By: " />
+            <ChoiceBox fx:id="orderByChBox" prefHeight="25.0" prefWidth="132.0" />
+         </children>
+      </HBox>
+      <HBox layoutX="133.0" layoutY="563.0" prefHeight="25.0" prefWidth="200.0">
+         <children>
+            <Label prefHeight="17.0" prefWidth="63.0" text="Mode: " />
+            <ChoiceBox fx:id="orderModeChBox" prefHeight="25.0" prefWidth="131.0" />
+         </children>
+      </HBox>
+      <Button alignment="CENTER" contentDisplay="CENTER" layoutX="567.0" layoutY="559.0" mnemonicParsing="false" onAction="#orderTable" prefHeight="34.0" prefWidth="91.0" text="Order" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2197ff00" height="44.0" layoutX="122.0" layoutY="554.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" width="547.0" />
     </children>
 </Pane>

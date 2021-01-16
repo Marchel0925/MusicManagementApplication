@@ -14,6 +14,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -21,10 +22,9 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import repository.MusicRepository;
 import utils.*;
-
 import java.awt.*;
-import java.net.URI;
-import java.net.URL;
+import java.net.*;
+import java.util.Comparator;
 import java.util.ResourceBundle;
 
 public class ListMusicController implements Initializable {
@@ -34,11 +34,15 @@ public class ListMusicController implements Initializable {
 
 
     @FXML private TableView<Music> table;
+    @FXML private ChoiceBox<String> orderModeChBox;
+    @FXML private ChoiceBox<String> orderByChBox;
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         configureTable();
         populateTable();
+        populateChoiceBoxes();
     }
 
     @FXML
@@ -74,57 +78,124 @@ public class ListMusicController implements Initializable {
 
     @FXML
     public void openSong(ActionEvent event) throws Exception {
-        if(table.getSelectionModel().getSelectedItem() == null){
-            alerts.handleWarning(event, "You need to select a song.");
+        if(table.getItems().isEmpty()){
+            alerts.handleError("Nothing to Play.");
+        } else {
+            if (table.getSelectionModel().getSelectedItem() == null) {
+                alerts.handleWarning(event, "You need to select a song.");
+            }
+            Music music = table.getSelectionModel().getSelectedItem();
+            try {
+                HttpURLConnection httpUrlConn = (HttpURLConnection) new URL(music.getSongURL())
+                        .openConnection();
+                httpUrlConn.setRequestMethod("HEAD");
+                httpUrlConn.setConnectTimeout(30000);
+                httpUrlConn.setReadTimeout(30000);
+                if (httpUrlConn.getResponseCode() == HttpURLConnection.HTTP_OK) {
+                    Desktop desktop = java.awt.Desktop.getDesktop();
+                    URI url = new URI(music.getSongURL());
+                    desktop.browse(url);
+                }
+            } catch (Exception e) {
+                alerts.handleError("No such site as: ' " + music.getSongURL() + " '");
+            }
         }
-        Desktop desktop = java.awt.Desktop.getDesktop();
-        Music music = table.getSelectionModel().getSelectedItem();
-        URI url = new URI(music.getSongURL());
-        desktop.browse(url);
     }
 
     @FXML
     public void checkArtist(ActionEvent event){
-        if(table.getSelectionModel().getSelectedItem() == null){
-            alerts.handleWarning(event, "You need to select a song.");
+        if(table.getItems().isEmpty()){
+            alerts.handleError("Nothing to check.");
         } else {
-            Music music = table.getSelectionModel().getSelectedItem();
-            Artist artist = music.getArtist();
-            ViewArtistController controller = (ViewArtistController) ViewLoader
-                    .load(getClass().getResource("/ui/view_artist.fxml"), "Artist");
-            controller.setData(artist.getStageName(), artist.getFirstName(), artist.getLastName(), artist.getId());
+            if (table.getSelectionModel().getSelectedItem() == null) {
+                alerts.handleWarning(event, "You need to select a song.");
+            } else {
+                Music music = table.getSelectionModel().getSelectedItem();
+                Artist artist = music.getArtist();
+                ViewArtistController controller = (ViewArtistController) ViewLoader
+                        .load(getClass().getResource("/ui/view_artist.fxml"), "Artist");
+                controller.setData(artist.getStageName(), artist.getFirstName(), artist.getLastName(), artist.getId());
+            }
+        }
+    }
+
+    @FXML
+    public void orderTable(){
+        if(table.getItems().isEmpty()){
+            alerts.handleError("Nothing to order.");
+        } else {
+            if (orderByChBox.getValue().equals("Genre") && orderModeChBox.getValue().equals("Descending")) {
+                Comparator<Music> comparator = Comparator.comparing(Music::getGenre);
+                comparator = comparator.reversed();
+                FXCollections.sort(table.getItems(), comparator);
+                table.refresh();
+            } else if (orderByChBox.getValue().equals("Genre") && orderModeChBox.getValue().equals("Ascending")) {
+                Comparator<Music> comparator = Comparator.comparing(Music::getGenre);
+                FXCollections.sort(table.getItems(), comparator);
+                table.refresh();
+            } else if (orderByChBox.getValue().equals("Title") && orderModeChBox.getValue().equals("Ascending")) {
+                Comparator<Music> comparator = Comparator.comparing(Music::getTitle);
+                FXCollections.sort(table.getItems(), comparator);
+                table.refresh();
+            } else if (orderByChBox.getValue().equals("Title") && orderModeChBox.getValue().equals("Descending")) {
+                Comparator<Music> comparator = Comparator.comparing(Music::getTitle);
+                comparator = comparator.reversed();
+                FXCollections.sort(table.getItems(), comparator);
+                table.refresh();
+            } else if (orderByChBox.getValue().equals("ID") && orderModeChBox.getValue().equals("Ascending")) {
+                Comparator<Music> comparator = Comparator.comparing(Music::getId);
+                FXCollections.sort(table.getItems(), comparator);
+                table.refresh();
+            } else if (orderByChBox.getValue().equals("ID") && orderModeChBox.getValue().equals("Descending")) {
+                Comparator<Music> comparator = Comparator.comparing(Music::getId);
+                comparator = comparator.reversed();
+                FXCollections.sort(table.getItems(), comparator);
+                table.refresh();
+            }
         }
     }
 
     @FXML
     private void editSong(ActionEvent event) {
-        if(table.getSelectionModel().getSelectedItem() == null) {
-            alerts.handleWarning(event, "You need to select a song.");
+        if(table.getItems().isEmpty()){
+            alerts.handleError("Nothing to edit.");
         } else {
-            Music music = table.getSelectionModel().getSelectedItem();
-            AddSongController controller = (AddSongController) ViewLoader.load(getClass()
-                    .getResource("/ui/add_song.fxml"), "Edit song");
-            controller.setEditable(music);
-            controller.addPostOperationCallback(this::populateTable);
+            if (table.getSelectionModel().getSelectedItem() == null) {
+                alerts.handleWarning(event, "You need to select a song.");
+            } else {
+                Music music = table.getSelectionModel().getSelectedItem();
+                AddSongController controller = (AddSongController) ViewLoader.load(getClass()
+                        .getResource("/ui/add_song.fxml"), "Edit song");
+                controller.setEditable(music);
+                controller.addPostOperationCallback(this::populateTable);
+            }
         }
     }
 
     @FXML
     private void clearData(ActionEvent event) {
-        for (Music song : table.getItems()) {
-            musicRepository.delete(song);
+        if(table.getItems().isEmpty()){
+            alerts.handleError("Nothing to clear.");
+        } else {
+            for (Music song : table.getItems()) {
+                musicRepository.delete(song);
+            }
+            populateTable();
         }
-        populateTable();
     }
 
     @FXML
     public void deleteSong(ActionEvent event) throws Exception {
-        if(table.getSelectionModel().getSelectedItem() == null){
-            alerts.handleWarning(event, "You need to select a song.");
+        if(table.getItems().isEmpty()){
+            alerts.handleError("Nothing to delete.");
+        } else {
+            if (table.getSelectionModel().getSelectedItem() == null) {
+                alerts.handleWarning(event, "You need to select a song.");
+            }
+            Music music = table.getSelectionModel().getSelectedItem();
+            musicRepository.delete(music);
+            table.refresh();
         }
-        Music music = table.getSelectionModel().getSelectedItem();
-        musicRepository.delete(music);
-        populateTable();
     }
 
     @FXML
@@ -161,8 +232,19 @@ public class ListMusicController implements Initializable {
 
     private void populateTable() {
         ObservableList<Music> list = FXCollections.observableArrayList();
-        list.addAll( musicRepository.findAll());
+        list.addAll(musicRepository.findAll());
         table.setItems(list);
     }
 
+    private void populateChoiceBoxes(){
+        ObservableList<String> orderBy = FXCollections.observableArrayList();
+        orderBy.add("ID");
+        orderBy.add("Genre");
+        orderBy.add("Title");
+        orderByChBox.setItems(orderBy);
+        ObservableList<String> orderMode = FXCollections.observableArrayList();
+        orderMode.add("Ascending");
+        orderMode.add("Descending");
+        orderModeChBox.setItems(orderMode);
+    }
 }

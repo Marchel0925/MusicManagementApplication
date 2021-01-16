@@ -13,6 +13,7 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -23,6 +24,7 @@ import utils.Alerts;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -31,13 +33,15 @@ public class ListArtistController implements Initializable {
     private final ArtistRepository artistRepository = new ArtistRepository();
     private final Alerts alerts = new Alerts();
 
-    @FXML
-    private TableView<Artist> table;
+    @FXML private TableView<Artist> table;
+    @FXML private ChoiceBox<String> orderModeChBox;
+    @FXML private ChoiceBox<String> orderByChBox;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         configureTable();
         populateTable();
+        populateChoiceBoxes();
     }
 
     @FXML
@@ -96,6 +100,46 @@ public class ListArtistController implements Initializable {
         app_stage.show();
     }
 
+    @FXML
+    public void orderTable(){
+        if(orderByChBox.getValue().equals("Stage Name") && orderModeChBox.getValue().equals("Descending")) {
+            Comparator<Artist> comparator = Comparator.comparing(Artist::getStageName);
+            comparator = comparator.reversed();
+            FXCollections.sort(table.getItems(), comparator);
+            table.refresh();
+        } else if(orderByChBox.getValue().equals("Stage Name") && orderModeChBox.getValue().equals("Ascending")) {
+            Comparator<Artist> comparator = Comparator.comparing(Artist::getStageName);
+            FXCollections.sort(table.getItems(), comparator);
+            table.refresh();
+        } else if(orderByChBox.getValue().equals("First Name") && orderModeChBox.getValue().equals("Ascending")) {
+            Comparator<Artist> comparator = Comparator.comparing(Artist::getFirstName);
+            FXCollections.sort(table.getItems(), comparator);
+            table.refresh();
+        } else if(orderByChBox.getValue().equals("First Name") && orderModeChBox.getValue().equals("Descending")) {
+            Comparator<Artist> comparator = Comparator.comparing(Artist::getFirstName);
+            comparator = comparator.reversed();
+            FXCollections.sort(table.getItems(), comparator);
+            table.refresh();
+        }else if(orderByChBox.getValue().equals("Last Name") && orderModeChBox.getValue().equals("Ascending")) {
+            Comparator<Artist> comparator = Comparator.comparing(Artist::getLastName);
+            FXCollections.sort(table.getItems(), comparator);
+            table.refresh();
+        } else if(orderByChBox.getValue().equals("Last Name") && orderModeChBox.getValue().equals("Descending")) {
+            Comparator<Artist> comparator = Comparator.comparing(Artist::getLastName);
+            comparator = comparator.reversed();
+            FXCollections.sort(table.getItems(), comparator);
+            table.refresh();
+        } else if(orderByChBox.getValue().equals("ID") && orderModeChBox.getValue().equals("Ascending")) {
+            Comparator<Artist> comparator = Comparator.comparing(Artist::getId);
+            FXCollections.sort(table.getItems(), comparator);
+            table.refresh();
+        } else if(orderByChBox.getValue().equals("ID") && orderModeChBox.getValue().equals("Descending")) {
+            Comparator<Artist> comparator = Comparator.comparing(Artist::getId);
+            comparator = comparator.reversed();
+            FXCollections.sort(table.getItems(), comparator);
+            table.refresh();
+        }
+    }
 
     private void configureTable() {
         TableColumn<Artist, Integer> column1 = new TableColumn<>("Id");
@@ -128,5 +172,17 @@ public class ListArtistController implements Initializable {
         ObservableList<Artist> list = FXCollections.observableArrayList();
         list.addAll(artistRepository.findAll());
         table.setItems(list);
+    }
+    private void populateChoiceBoxes(){
+        ObservableList<String> orderBy = FXCollections.observableArrayList();
+        orderBy.add("ID");
+        orderBy.add("Stage Name");
+        orderBy.add("First Name");
+        orderBy.add("Last Name");
+        orderByChBox.setItems(orderBy);
+        ObservableList<String> orderMode = FXCollections.observableArrayList();
+        orderMode.add("Ascending");
+        orderMode.add("Descending");
+        orderModeChBox.setItems(orderMode);
     }
 }
